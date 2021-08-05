@@ -9,7 +9,6 @@ import { ProductCartController } from './controllers/ProductCartController';
 import { ProductFavoriteController } from './controllers/ProductFavoriteController';
 import { ProductAdminController } from './controllers/ProductAdminController';
 
-
 const User            = new UserController();
 const Category        = new CategoryController();
 const ProductSearch   = new ProductController();
@@ -20,7 +19,6 @@ const ProductFavorite = new ProductFavoriteController();
 
 const router = Router();
 const upload = multer(uploadConfig);
-
 
 router.post("/users", User.createUser);
 
@@ -47,7 +45,5 @@ router.get("/product-cart/:hash_host", ProductCart.getAllProductsCart);
 router.post("/product-favorite", ProductFavorite.insertProductFavorite);
 router.delete("/product-favorite", ProductFavorite.removeProductFavorite);
 router.get("/product-favorite/:hash_host", ProductFavorite.getAllProductFavorite);
-
-
 
 export { router };

@@ -24,7 +24,7 @@ class Product{
     @Column({name: 'validate_product'})
     @CreateDateColumn()
     validate_product: Date;
-    
+
     @Column({name: 'amount_stock_product', type: 'int'})
     amount_stock_product: number;
 
@@ -52,6 +52,5 @@ class Product{
     created_at: Date;
 
 }
-
 
 export { Product };

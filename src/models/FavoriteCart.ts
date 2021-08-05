@@ -1,9 +1,9 @@
-import { 
+import {
     Entity,
-    PrimaryGeneratedColumn, 
-    Column, 
-    Generated, 
-    CreateDateColumn, 
+    PrimaryGeneratedColumn,
+    Column,
+    Generated,
+    CreateDateColumn,
     OneToMany,
     JoinColumn
 } from 'typeorm';
@@ -11,7 +11,7 @@ import { ProductFavorite } from './ProductFavorite';
 
 @Entity('table_favorite_cart')
 class FavoriteCart{
-    
+
     @PrimaryGeneratedColumn("uuid")
     @Generated("uuid")
     id_favorite_cart: string;
@@ -27,6 +27,5 @@ class FavoriteCart{
     created_at: Date;
 
 }
-
 
 export { FavoriteCart };

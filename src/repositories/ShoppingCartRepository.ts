@@ -13,5 +13,4 @@ class ShoppingCartRepository extends Repository<ShoppingCart> {
     }
 }
 
-
 export { ShoppingCartRepository };

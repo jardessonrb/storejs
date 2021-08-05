@@ -1,14 +1,13 @@
-import { 
-    Entity, 
-    Column, 
-    PrimaryGeneratedColumn, 
-    ManyToOne, 
-    JoinColumn, 
-    Generated, 
-    CreateDateColumn 
+import {
+    Entity,
+    Column,
+    PrimaryGeneratedColumn,
+    ManyToOne,
+    JoinColumn,
+    Generated,
+    CreateDateColumn
 } from 'typeorm';
 import { Product } from './Product';
-
 
 @Entity('table_images_products')
 class ImageProduct{
@@ -27,6 +26,5 @@ class ImageProduct{
     @CreateDateColumn()
     created_at: Date;
 }
-
 
 export { ImageProduct };

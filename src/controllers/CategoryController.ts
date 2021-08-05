@@ -8,8 +8,8 @@ class CategoryController{
 
     async createCategory(request: Request, response: Response){
         const {
-            name_category, 
-            description_category 
+            name_category,
+            description_category
         } = request.body;
 
         const schema = Yup.object().shape({
@@ -27,10 +27,10 @@ class CategoryController{
             return response.status(406).json(error.errors);
         }
         const categoryRepository = getConnection().getCustomRepository(CategoryRepository);
-        
+
         const category = categoryRepository.create({
-            name_category, 
-            description_category 
+            name_category,
+            description_category
         });
 
         const nameCategoryExists = await categoryRepository.find({select: ["name_category"], where: {name_category: name_category}})
@@ -40,10 +40,9 @@ class CategoryController{
 
             return response.status(201).json({message: `Categoria ${name_category} cadastrada com sucesso`});
         }
-        
+
         return response.status(406).json({message: "Essa categoria já existe"});
     }
 }
-
 
 export { CategoryController };
