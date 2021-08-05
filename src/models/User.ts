@@ -2,7 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, Generated, CreateDateColumn } f
 
 @Entity('table_store_users')
 class User{
-    
+
     @PrimaryGeneratedColumn("uuid")
     @Generated("uuid")
     id_user: string;
@@ -21,6 +21,5 @@ class User{
     created_at: Date;
 
 }
-
 
 export { User };

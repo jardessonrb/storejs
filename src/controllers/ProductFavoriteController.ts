@@ -44,7 +44,7 @@ class ProductFavoriteController{
         try {
 
             const result = await productFavoriteRepository.save(productFavorite);
-            return response.status(201).json({result: result, status: 'success', message: 'Produto favoritado'});     
+            return response.status(201).json({result: result, status: 'success', message: 'Produto favoritado'});
 
         } catch (error) {
             return response.status(500).json({error, status: 'erro interno do servidor'});
@@ -59,9 +59,9 @@ class ProductFavoriteController{
             id_product: Yup.string().uuid("Identificador do produto não corresponde").required("Identificador do produto é obrigatório"),
             hash_host: Yup.string().uuid("Identificador do host não corresponde").required("Identificador do host é obrigatório")
         });
-        
+
         try {
-            await schema.validate(request.body,{ 
+            await schema.validate(request.body,{
                 abortEarly: false
             });
 
@@ -70,16 +70,16 @@ class ProductFavoriteController{
         }
 
         const productFavoriteRepository = getConnection().getCustomRepository(ProductFavoriteRepository);
-        
+
         try {
-            
+
             const result = await productFavoriteRepository.createQueryBuilder().delete().where("id_product = :id and hash_host = :hash", { id: id_product, hash: hash_host}).execute();
-            
+
             return response.status(200).json({result: result, status: 'sucess', message: 'Produto removido com sucesso'});
-            
+
         } catch (error) {
-            
-            return response.status(500).json({errors: [error.errors], status: 'error', message: 'Erro interno do servidor'});            
+
+            return response.status(500).json({errors: [error.errors], status: 'error', message: 'Erro interno do servidor'});
         }
     }
 
@@ -90,9 +90,9 @@ class ProductFavoriteController{
         const schema = Yup.object().shape({
             hash_host: Yup.string().uuid("Identificador do host não corresponde").required("Identificador do host é obrigatório")
         });
-        
+
         try {
-            await schema.validate({hash_host}, { 
+            await schema.validate({hash_host}, {
                 abortEarly: false
             });
 
@@ -101,23 +101,22 @@ class ProductFavoriteController{
         }
 
         const productFavoriteRepository = getConnection().getCustomRepository(ProductFavoriteRepository);
-        
-        try { 
 
-            const result = await productFavoriteRepository.query(`select * from table_store_products 
-            inner join table_products_favorite 
-            on table_store_products.id_product = table_products_favorite.id_product 
+        try {
+
+            const result = await productFavoriteRepository.query(`select * from table_store_products
+            inner join table_products_favorite
+            on table_store_products.id_product = table_products_favorite.id_product
             where table_products_favorite.hash_host = '${hash_host}'`);
 
             return response.status(200).json({result: result, status: 'sucess', message: 'getall'});
-            
+
         } catch (error) {
-            
-            return response.status(500).json({errors: [error.errors], status: 'error', message: 'Erro interno do servidor'});            
+
+            return response.status(500).json({errors: [error.errors], status: 'error', message: 'Erro interno do servidor'});
         }
     }
 
 }
-
 
 export { ProductFavoriteController };

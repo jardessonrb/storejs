@@ -8,11 +8,9 @@ import {
     OneToMany,
     JoinColumn
 } from 'typeorm';
-
 import { v4 as uuid } from 'uuid';
 import { AndressDeliverySales } from './AndressDeliverySales';
 import { ProductSale } from './ProductSale';
-
 
 @Entity('table_store_sales')
 class Sales{
@@ -29,10 +27,10 @@ class Sales{
 
     @Column({name: 'name_client_sales', type: 'varchar'})
     name_client_sales: string;
-    
+
     @Column({name: 'cpf_client_sales', type: 'varchar'})
     cpf_client_sales: string;
-    
+
     @Column({name: 'id_user_sales', type: 'uuid'})
     id_user_sales: string;
 
@@ -54,7 +52,6 @@ class Sales{
         cascade: ['insert', 'remove']
     })
     andressDeliverySales: AndressDeliverySales;
-
 
     constructor(){
         if(!this.id_sales){

@@ -19,7 +19,7 @@ class ProductAdminController extends ProductController {
             emphasis_product,
             id_category
         } = request.body;
-        
+
         const imagesProduct = request.files as Express.Multer.File[];
         if(imagesProduct.length > 5 || imagesProduct.length < 1){
             return response.status(400).json({message: "Numero de images invalidos"});
@@ -70,7 +70,7 @@ class ProductAdminController extends ProductController {
         try {
             const {id_product, name_product: string} = await productRepository.save(product);
             return response.status(201).json({id_product, name_product, status: 'sucess', message: `Produto ${name_product} cadastrado com sucesso`});
-            
+
         } catch (error) {
             return response.status(500).json({status: 'error', message: `Erro interno do servidor ...`});
         }
@@ -78,7 +78,7 @@ class ProductAdminController extends ProductController {
     }
 
     async updateProduct(request: Request, response: Response){
-        let { 
+        let {
             id_product,
             name_product,
             value_product,
@@ -90,8 +90,8 @@ class ProductAdminController extends ProductController {
             id_category
         } = request.body;
 
-        
-        let dataProduct = { 
+
+        let dataProduct = {
             id_product,
             name_product,
             value_product,
@@ -125,46 +125,46 @@ class ProductAdminController extends ProductController {
         } catch (error) {
             return response.status(406).json({errors: [error.errors], status: 'error'});
         }
-        
+
         const productRepository = getConnection().getCustomRepository(ProductRepository);
-        
+
         try {
             const result = productRepository.update(id_product, dataProduct);
-            
+
             return response.status(200).json({result: result, status: 'sucess', message: `Produto ${name_product} atualizado com sucesso`});
         } catch (error) {
-            return response.status(500).json({errors: [error.errors], status: 'error', message: 'Erro interno do servidor'});            
+            return response.status(500).json({errors: [error.errors], status: 'error', message: 'Erro interno do servidor'});
         }
-        
-        
+
+
     }
-    
+
     async deleteProduct(request: Request, response: Response) {
         const {id_product} = request.params;
-        
+
         const schema = Yup.object().shape({
             id_product: Yup.string().uuid("Identificador do produto não corresponde").required("Identificador do produto é obrigatório")
         });
-        
+
         try {
-            await schema.validate({id_product},{ 
+            await schema.validate({id_product},{
                 abortEarly: false
             });
         } catch (error) {
             return response.status(406).json({errors: [error.errors], status: 'error'});
         }
-        
+
         const productRepository = getConnection().getCustomRepository(ProductRepository);
-        
+
         try {
-            
+
             const result = productRepository.delete(id_product);
-            
+
             return response.status(200).json({result: result, status: 'sucess', message: `Produto deletado com sucesso`});
-            
+
         } catch (error) {
-            
-            return response.status(500).json({errors: [error.errors], status: 'error', message: 'Erro interno do servidor'});            
+
+            return response.status(500).json({errors: [error.errors], status: 'error', message: 'Erro interno do servidor'});
         }
     }
 

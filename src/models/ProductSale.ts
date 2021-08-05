@@ -1,18 +1,15 @@
-import { 
-    Entity, 
-    Column, 
-    PrimaryGeneratedColumn, 
-    Generated, 
-    CreateDateColumn, 
-    ManyToOne, 
-    OneToMany, 
-    JoinColumn, 
+import {
+    Entity,
+    Column,
+    PrimaryGeneratedColumn,
+    Generated,
+    CreateDateColumn,
+    ManyToOne,
+    OneToMany,
+    JoinColumn,
     OneToOne
 } from 'typeorm';
-
 import { Sales } from './Sales';
-
-
 
 @Entity('table_store_products_sales')
 class ProductSale{
@@ -44,6 +41,5 @@ class ProductSale{
     created_at: Date;
 
 }
-
 
 export { ProductSale };

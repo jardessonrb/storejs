@@ -14,10 +14,10 @@ class ProductController{
             const resultSearchProductEmphasis = await productRepository.getAllProductsOrderEmphasisRepository();
 
             return response.status(200).json({result: resultSearchProductEmphasis, status: 'sucess'});
-            
+
         } catch (error) {
             return response.status(500).json({errors: error, status: 'error ..', message: 'Erro interno do servidor ...'});
-            
+
         }
     }
 
@@ -34,22 +34,22 @@ class ProductController{
             const resultSearchProductPage = await productRepository.getProductsForPageRepository(Number(page));
 
             return response.status(200).json({result: resultSearchProductPage, status: 'sucess'});
-            
+
         } catch (error) {
             return response.status(500).json({errors: error, status: 'error ..', message: 'Erro interno do servidor ...'});
-            
+
         }
     }
 
     async getProductByLikeName(request: Request, response: Response){
         const { name  } = request.query;
-            
+
         const productRepository = getConnection().getCustomRepository(ProductRepository);
 
         try {
             const resultSearchProductLike = await productRepository.getProductByLikeNameRepository(name.toString());
             return response.status(200).json({result: resultSearchProductLike, status: 'sucess'});
-            
+
         } catch (error) {
             return response.status(500).json({errors: error, status: 'error ..', message: 'Erro interno do servidor ...'});
         }
@@ -64,13 +64,12 @@ class ProductController{
         try {
             const resultSearchSpecificProduct = await productRepository.getProductBySpecificNameRepository(name.toString());
             return response.status(200).json({result: resultSearchSpecificProduct, status: 'sucess'});
-            
+
         } catch (error) {
             return response.status(500).json({errors: error, status: 'error ..', message: 'Erro interno do servidor ...'});
         }
     }
-    
-}
 
+}
 
 export { ProductController } ;

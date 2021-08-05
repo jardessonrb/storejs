@@ -2,7 +2,6 @@ import { request } from 'express';
 import multer from 'multer';
 import path from 'path';
 
-
 export default {
     storage: multer.diskStorage({
         destination: function(request, file, cb){
@@ -11,7 +10,7 @@ export default {
         },
         filename: (request, file, callBack) => {
             const filename = `${Date.now()}-${file.originalname}`;
-            
+
             callBack(null, filename);
         }
     })

@@ -35,7 +35,7 @@ class ProductRepository extends Repository<Product> {
         }
     }
     async getProductByLikeNameRepository(nameProduct: string){
-        
+
         try {
             const result = await this.find({name_product: ILike(`%${nameProduct}%`)})
 
@@ -45,7 +45,7 @@ class ProductRepository extends Repository<Product> {
         }
     }
     async getProductBySpecificNameRepository(nameProduct: string){
-        
+
         try {
             const result = await this.find({where: {name_product: nameProduct}, take: 1});
             return result;
@@ -63,17 +63,16 @@ class ProductRepository extends Repository<Product> {
                 if(differenceQuantity >= 0){
                     return await this.update(product.id_product, {amount_stock_product: differenceQuantity});
                 }
-                // return this.query(`UPDATE table_store_products SET amount_stock_product = 
+                // return this.query(`UPDATE table_store_products SET amount_stock_product =
                 // ((select amount_stock_product from table_store_products where id_product = ${product.id_product}) - ${product.quantity_product})
                 // WHERE id_product = ${product.id_product} AND ((select amount_stock_product from table_store_products where id_product = ${product.id_product}) - ${product.quantity_product}) >= 0`);
                 // return await this.update(product.id_product, {amount_stock_product: -10});
             })
 
         } catch (error) {
-            
+
         }
     }
 }
-
 
 export { ProductRepository };

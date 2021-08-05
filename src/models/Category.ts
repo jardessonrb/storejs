@@ -23,5 +23,4 @@ class Category{
     products: Product;
 }
 
-
 export { Category };

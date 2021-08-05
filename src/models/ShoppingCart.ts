@@ -1,9 +1,9 @@
-import { 
+import {
     Entity,
-    PrimaryGeneratedColumn, 
-    Column, 
-    Generated, 
-    CreateDateColumn, 
+    PrimaryGeneratedColumn,
+    Column,
+    Generated,
+    CreateDateColumn,
     OneToMany,
     JoinColumn
 } from 'typeorm';
@@ -11,7 +11,7 @@ import { ProductCart } from './ProductCart';
 
 @Entity('table_shopping_cart')
 class ShoppingCart{
-    
+
     @PrimaryGeneratedColumn("uuid")
     @Generated("uuid")
     id_shopping_cart: string;
@@ -27,6 +27,5 @@ class ShoppingCart{
     created_at: Date;
 
 }
-
 
 export { ShoppingCart };

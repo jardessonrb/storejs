@@ -10,6 +10,7 @@ interface ProductsSales{
     value_product: number;
     quantity_product: number;
 }
+
 interface ProductsSalesValue{
     id_product: string;
     name_product: string;
@@ -20,7 +21,7 @@ interface ProductsSalesValue{
 
 class SaleController{
     async createSale(request: Request, response: Response){
-        const { 
+        const {
             name_client_sales,
             cpf_client_sales,
             id_user_sales,
@@ -30,7 +31,7 @@ class SaleController{
         } = request.body;
 
         let valueTotalSale = 0;
-        
+
         const productSale: ProductsSalesValue[] = products_sale.map((product: ProductsSales) => {
             valueTotalSale += (product.quantity_product * product.value_product);
             return (
@@ -43,7 +44,7 @@ class SaleController{
                 }
             );
         })
-        
+
         const dataSalesComplet = {
             value_total_sales: valueTotalSale,
             status_sales: "pendente",
@@ -106,12 +107,12 @@ class SaleController{
                     amount_stock_product: () => `amount_stock_product - ${product.quantity_product}`
                 })
                 .where("id_product = :idProduct", {idProduct: product.id_product})
-                .execute();             
+                .execute();
             })
 
             const resultSales = await myQueryRunnerTransaction.manager.save(sales);
             idSalesResult = resultSales.id_sales;
-            
+
             await myQueryRunnerTransaction.commitTransaction();
 
         } catch (error) {
@@ -119,7 +120,7 @@ class SaleController{
         }finally{
             await myQueryRunnerTransaction.release();
         }
-        
+
         try {
             const saleCreatedNow = await salesRepository.find({where: {id_sales: idSalesResult}});
 
@@ -128,11 +129,11 @@ class SaleController{
             }
 
             return response.status(500).json({error: "compra não foi cadastrada no sistema", message: "Não foi possivel realizar sua comprar", status: "error"});
-            
+
         } catch (error) {
             return response.status(500).json({error: error.errors, message: "Erro interno no servidor", status: "error"});
         }
-        
+
     }
 
     async getSaleByUser(request: Request, response: Response){
