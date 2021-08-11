@@ -2,7 +2,7 @@ import { getCustomRepository, getConnection } from 'typeorm';
 import { Request, Response } from 'express';
 import { ProductRepository } from '../repositories/ProductRepository';
 import * as Yup from 'yup';
-import '../Utils/setLocaleYup';
+import '../utils/setLocaleYup';
 
 
 class ProductController{
