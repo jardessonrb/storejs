@@ -72,8 +72,8 @@ module.exports = {
 
   // An array of file extensions your modules use
   moduleFileExtensions: [
-    "js",
     "ts",
+    "js",
     "jsx",
     "tsx",
     "json",
@@ -146,7 +146,7 @@ module.exports = {
   // testLocationInResults: false,
 
   // The glob patterns Jest uses to detect test files
-  testMatch: ["**/__tests__/*.test.ts"],
+  testMatch: ["**/__tests__/**/*.test.ts"],
 
   // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
   // testPathIgnorePatterns: [
@@ -189,3 +189,18 @@ module.exports = {
   // Whether to use watchman for file crawling
   // watchman: true,
 };
+
+
+// import type {Config} from '@jest/types';
+
+// // Sync object
+// export const config: Config.InitialOptions = {
+//   verbose: true,
+// };
+
+// // Or async function
+// export default async (): Promise<Config.InitialOptions> => {
+//   return {
+//     verbose: true,
+//   };
+// };

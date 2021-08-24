@@ -1,4 +1,4 @@
-import { getCustomRepository, getConnection } from 'typeorm';
+import { getConnection } from 'typeorm';
 import { Request, Response } from 'express';
 import { UserRepository } from '../repositories/UserRepository';
 import * as Yup  from 'yup';

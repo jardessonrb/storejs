@@ -15,7 +15,6 @@ class ProductAdminController extends ProductController {
             description_product,
             amount_stock_product,
             validate_product,
-            last_update_product,
             emphasis_product,
             id_category
         } = request.body;
@@ -48,7 +47,7 @@ class ProductAdminController extends ProductController {
             amount_stock_product: Yup.number().positive().integer().required("A quantidade do produto é obrigatório"),
             validate_product: Yup.date().required("A data de vencimento do produto é obrigatório"),
             emphasis_product: Yup.boolean().label("Destaque é obrigatório"),
-            id_category: Yup.string().uuid("Identificador não válido").required("O indetificador da categoria é obrigatório"),
+            id_category: Yup.string().uuid("Identificador não válido da categoria").required("O indetificador da categoria é obrigatório"),
             images: Yup.array(Yup.object().shape({
                 path_image: Yup.string().required("Nome da imagem não válido")
             }))
