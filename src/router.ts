@@ -20,7 +20,8 @@ const ProductFavorite = new ProductFavoriteController();
 const router = Router();
 const upload = multer(uploadConfig);
 
-router.post("/users", User.createUser);
+router.post("/signup", User.createUser);
+router.get("/login", User.logIn);
 
 router.post("/categories", Category.createCategory);
 
