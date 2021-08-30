@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 import { UserRepository } from '../repositories/UserRepository';
 import * as Yup  from 'yup';
 import '../utils/setLocaleYup';
-import * as jwt from  'jsonwebtoken';
+import { generateToken } from '../system/systemGenerateToken';
 
 class UserController{
 
@@ -31,7 +31,7 @@ class UserController{
 
         const userRepository = getConnection().getCustomRepository(UserRepository);
 
-        const user = userRepository.create({
+        const userCreate = userRepository.create({
             name_user,
             email_user,
             password_user
@@ -42,9 +42,10 @@ class UserController{
             const emailExists = await userRepository.isExistsEmail(email_user);
 
             if(!emailExists) {
-              const {id_user, name_user} = await userRepository.save(user);
+              const {password_user, email_user, created_at, ...user} = await userRepository.save(userCreate);
+              const token = generateToken(user.id_user);
 
-              return response.status(201).json({id_user, name_user, message: 'Usuário cadastrado com sucesso !', status: 'success'});
+              return response.status(201).json({user, token, message: 'Usuário cadastrado com sucesso !', status: 'success'});
             }else{
               return response.status(406).json({message: "Email já cadastrado no sistema", status: 'error'});
             }
@@ -76,9 +77,7 @@ class UserController{
       if(userFindOne){
         const {password_user, created_at, email_user, ...user} = userFindOne;
 
-        const token = jwt.sign({user_id: user.id_user}, process.env.SECRET_HASH_KEY, {
-          expiresIn: 86400
-        });
+        const token = generateToken(user.id_user);
 
         return response.status(201).json({user, token, message: 'Usuário logado com sucesso !', status: 'success'});
       }
