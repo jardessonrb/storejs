@@ -3,8 +3,7 @@ import { Request, Response } from 'express';
 import { UserRepository } from '../repositories/UserRepository';
 import * as Yup  from 'yup';
 import '../utils/setLocaleYup';
-import crypto from 'crypto';
-import {SignJWT} from 'jose/jwt/sign';
+import * as jwt from  'jsonwebtoken';
 
 class UserController{
 
@@ -72,10 +71,16 @@ class UserController{
       }
       const userRepository = getConnection().getCustomRepository(UserRepository);
 
-      const user = await userRepository.findOne({ email_user, password_user});
+      const userFindOne = await userRepository.findOne({ email_user, password_user});
 
-      if(user){
-        return response.status(201).json({user, message: 'Usuário logado com sucesso !', status: 'success'});
+      if(userFindOne){
+        const {password_user, created_at, email_user, ...user} = userFindOne;
+
+        const token = jwt.sign({user_id: user.id_user}, process.env.SECRET_HASH_KEY, {
+          expiresIn: 86400
+        });
+
+        return response.status(201).json({user, token, message: 'Usuário logado com sucesso !', status: 'success'});
       }
 
       return response.status(406).json({message: "Email ou senha inválido(s)", status: 'error'});
