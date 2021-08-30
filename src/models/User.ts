@@ -1,5 +1,15 @@
-import { Entity, PrimaryGeneratedColumn, Column, Generated, CreateDateColumn } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  Generated,
+  CreateDateColumn,
+  Unique
+} from 'typeorm';
+import crypto from 'crypto';
 
+
+@Unique(['email_user'])
 @Entity('table_store_users')
 class User{
 

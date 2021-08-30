@@ -2,7 +2,7 @@ import { getCustomRepository, getConnection } from 'typeorm';
 import { Request, Response } from 'express';
 import { ProductRepository } from '../repositories/ProductRepository';
 import * as Yup from 'yup';
-import '../Utils/setLocaleYup';
+import '../utils/setLocaleYup';
 
 
 class ProductController{
@@ -13,7 +13,7 @@ class ProductController{
         try {
             const resultSearchProductEmphasis = await productRepository.getAllProductsOrderEmphasisRepository();
 
-            return response.status(200).json({result: resultSearchProductEmphasis, status: 'sucess'});
+            return response.status(200).json({result: resultSearchProductEmphasis, status: 'success'});
 
         } catch (error) {
             return response.status(500).json({errors: error, status: 'error ..', message: 'Erro interno do servidor ...'});
@@ -23,11 +23,11 @@ class ProductController{
 
     async getProductsForPage(request: Request, response: Response){
         let { page = 1  } = request.query;
-        console.log("Page: ", page);
+
         if(!page){
             page = 1;
         }
-        // console.log("Page: ", page);
+
         const productRepository = getConnection().getCustomRepository(ProductRepository);
 
         try {

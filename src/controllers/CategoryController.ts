@@ -2,7 +2,7 @@ import { getConnection, getCustomRepository} from 'typeorm';
 import { Request, Response } from 'express';
 import { CategoryRepository } from '../repositories/CategoryRepository';
 import * as Yup from 'yup';
-import '../Utils/setLocaleYup';
+import '../utils/setLocaleYup';
 
 class CategoryController{
 

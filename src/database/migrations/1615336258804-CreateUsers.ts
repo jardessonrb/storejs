@@ -13,7 +13,7 @@ export class CreateUsers1615317348011 implements MigrationInterface {
                         generationStrategy: "uuid",
                         isPrimary: true,
                         isUnique: true,
-                        default: 'uuid_generate_v4()'                        
+                        default: 'uuid_generate_v4()'
                     },
                     {
                         name: "name_user",
@@ -21,7 +21,8 @@ export class CreateUsers1615317348011 implements MigrationInterface {
                     },
                     {
                         name: "email_user",
-                        type: "varchar"
+                        type: "varchar",
+                        isUnique: true,
                     },
                     {
                         name: "password_user",

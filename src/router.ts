@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import multer from 'multer';
-import uploadConfig from './configFiles/configUpload';
+import uploadConfig from './configuploads/configUpload';
 import { UserController }  from './controllers/UserController';
 import { CategoryController }  from './controllers/CategoryController';
 import { ProductController }  from './controllers/ProductController';
@@ -20,14 +20,14 @@ const ProductFavorite = new ProductFavoriteController();
 const router = Router();
 const upload = multer(uploadConfig);
 
-router.post("/users", User.createUser);
+router.post("/signup", User.createUser);
+router.get("/login", User.logIn);
 
 router.post("/categories", Category.createCategory);
 
 router.post("/asm/products", upload.array('images'), ProductAdmin.createProduct);
 router.put("/asm/products", ProductAdmin.updateProduct);
 router.delete("/asm/products/:id_product", ProductAdmin.deleteProduct);
-
 
 router.get("/products/getAllProductsOrderEmphasis", ProductSearch.getAllProductsOrderEmphasis);
 router.get("/products/getProductsForPage", ProductSearch.getProductsForPage);
@@ -40,7 +40,6 @@ router.get("/sales/:idHashUser", Sale.getSaleByUser);
 router.post("/product-cart", ProductCart.insertProductCart);
 router.delete("/product-cart", ProductCart.removeProductCart);
 router.get("/product-cart/:hash_host", ProductCart.getAllProductsCart);
-
 
 router.post("/product-favorite", ProductFavorite.insertProductFavorite);
 router.delete("/product-favorite", ProductFavorite.removeProductFavorite);
