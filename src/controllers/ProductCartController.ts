@@ -51,7 +51,9 @@ class ProductCartController{
     }
 
     async removeProductCart(request: Request, response: Response){
-        const { id_product, hash_host } = request.body;
+        const { hashHost } = request.body;
+        const { idProduct } = request.params;
+        const dataProduct = { id_product: idProduct, hash_host: hashHost };
 
         const schema = Yup.object().shape({
             id_product: Yup.string().uuid("Identificador do produto não corresponde").required("Identificador do produto é obrigatório"),
@@ -59,7 +61,7 @@ class ProductCartController{
         });
 
         try {
-            await schema.validate(request.body,{
+            await schema.validate(dataProduct,{
                 abortEarly: false
             });
 
@@ -71,7 +73,14 @@ class ProductCartController{
 
         try {
 
-            const result = await productCartRepository.createQueryBuilder().delete().where("id_product = :id and hash_host = :hash", { id: id_product, hash: hash_host}).execute();
+            const result = await productCartRepository
+                            .createQueryBuilder()
+                            .delete()
+                            .where("id_product = :id and hash_host = :hash", {
+                              id: dataProduct.id_product,
+                              hash: dataProduct.hash_host
+                            })
+                            .execute();
 
             return response.status(200).json({result: result, status: 'sucess', message: `Produto deletado com sucesso`});
 
@@ -83,7 +92,8 @@ class ProductCartController{
     }
 
     async getAllProductsCart(request: Request, response: Response){
-        const { hash_host } = request.params;
+        const { hashHost } = request.params;
+        const hash_host = hashHost;
 
         const schema = Yup.object().shape({
             hash_host: Yup.string().uuid("Identificador do host não corresponde").required("Identificador do host é obrigatório")
