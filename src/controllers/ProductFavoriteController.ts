@@ -8,12 +8,13 @@ class ProductFavoriteController{
 
     async insertProductFavorite(request: Request, response: Response){
         const { id_hash_host, id_user, id_product } = request.body;
+
         let hashHostTemporary = id_hash_host;
+
         if(id_hash_host === ''){
             hashHostTemporary = await getConnection()
                                     .getCustomRepository(ListFavoriteCartRepository)
                                     .createFavoriteCart()
-            // console.log("hashHostTemporary: ",hashHostTemporary);
         }
 
         const hash_host = hashHostTemporary;

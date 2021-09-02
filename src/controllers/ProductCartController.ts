@@ -5,6 +5,7 @@ import * as Yup  from 'yup';
 import { ShoppingCartRepository } from '../repositories/ShoppingCartRepository';
 
 class ProductCartController{
+
     async insertProductCart(request: Request, response: Response){
         const {id_hash_host, id_user, id_product} = request.body;
         let temporaryHashHost = id_hash_host;
