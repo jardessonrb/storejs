@@ -54,8 +54,8 @@ class UserController{
         }
     }
 
-    async logIn(resquest: Request, response: Response){
-      const [, hash] = resquest.headers.authorization.split(' ');
+    async logIn(request: Request, response: Response){
+      const [, hash] = request.headers.authorization.split(' ');
       const [email_user, password_user] = Buffer.from(hash, 'base64').toString().split(":");
 
       const schema = Yup.object().shape({

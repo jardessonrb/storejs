@@ -20,29 +20,29 @@ const ProductFavorite = new ProductFavoriteController();
 const router = Router();
 const upload = multer(uploadConfig);
 
-router.post("/signup", User.createUser);
-router.get("/login", User.logIn);
+router.post("/user/signup", User.createUser);
+router.get("/user/login", User.logIn);
 
-router.post("/categories", Category.createCategory);
+router.post("/categories/create", Category.createCategory);
 
-router.post("/asm/products", upload.array('images'), ProductAdmin.createProduct);
-router.put("/asm/products", ProductAdmin.updateProduct);
-router.delete("/asm/products/:id_product", ProductAdmin.deleteProduct);
+router.post("/asm/products/create", upload.array('images'), ProductAdmin.createProduct);
+router.put("/asm/products/update", ProductAdmin.updateProduct);
+router.delete("/asm/products/delete/:id_product", ProductAdmin.deleteProduct);
 
 router.get("/products/getAllProductsOrderEmphasis", ProductSearch.getAllProductsOrderEmphasis);
 router.get("/products/getProductsForPage", ProductSearch.getProductsForPage);
 router.get("/products/getProductByLikeName", ProductSearch.getProductByLikeName);
 router.get("/products/getProductBySpecificName", ProductSearch.getProductBySpecificName);
 
-router.post("/sales", Sale.createSale);
-router.get("/sales/:idHashUser", Sale.getSaleByUser);
+router.post("/sales/create", Sale.createSale);
+router.get("/sales/getSaleByUser/:idHashUser", Sale.getSaleByUser);
 
-router.post("/product-cart", ProductCart.insertProductCart);
-router.delete("/product-cart", ProductCart.removeProductCart);
-router.get("/product-cart/:hash_host", ProductCart.getAllProductsCart);
+router.post("/product-cart/insert", ProductCart.insertProductCart);
+router.delete("/product-cart/delete/:idProduct", ProductCart.removeProductCart);
+router.get("/product-cart/getProductsCart/:hashHost", ProductCart.getAllProductsCart);
 
-router.post("/product-favorite", ProductFavorite.insertProductFavorite);
-router.delete("/product-favorite", ProductFavorite.removeProductFavorite);
-router.get("/product-favorite/:hash_host", ProductFavorite.getAllProductFavorite);
+router.post("/product-favorite/insert", ProductFavorite.insertProductFavorite);
+router.delete("/product-favorite/delete/:idProduct", ProductFavorite.removeProductFavorite);
+router.get("/product-favorite/getProductsFavorite/:hashHost", ProductFavorite.getAllProductFavorite);
 
 export { router };
