@@ -18,7 +18,7 @@ class ProductRepository extends Repository<Product> {
 
             return result;
         } catch (error) {
-            console.log("Error na getAll ... :", error);
+            throw new error;
         }
     }
     async getProductsForPageRepository(page: number){

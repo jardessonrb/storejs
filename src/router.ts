@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import multer from 'multer';
-import uploadConfig from './configuploads/configUpload';
+import uploadConfig from './uploadsconfig/configUpload';
 import { UserController }  from './controllers/UserController';
 import { CategoryController }  from './controllers/CategoryController';
 import { ProductController }  from './controllers/ProductController';
