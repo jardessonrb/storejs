@@ -12,12 +12,10 @@ class ProductController{
 
         try {
             const resultSearchProductEmphasis = await productRepository.getAllProductsOrderEmphasisRepository();
-
             return response.status(200).json({result: resultSearchProductEmphasis, status: 'success'});
 
         } catch (error) {
             return response.status(500).json({errors: error, status: 'error ..', message: 'Erro interno do servidor ...'});
-
         }
     }
 
