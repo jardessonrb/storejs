@@ -18,18 +18,42 @@ class ProductRepository extends Repository<Product> {
 
             return result;
         } catch (error) {
-            console.log("Error na getAll ... :", error);
+            throw new error;
         }
     }
+
+    async getArrayPagination(limit = 3){
+      const arrayPagination = [];
+
+      try {
+        const count = await this.count();
+        for (let i = 1; i <= Math.ceil(count / limit); i++) {
+          arrayPagination.push(i);
+        }
+
+        return arrayPagination;
+      } catch (error) {
+        throw error;
+      }
+    }
+
     async getProductsForPageRepository(page: number){
         const numberOfProducts = 3;
         const offSet = (page - 1) * numberOfProducts;
         const numberOfProductsLimit = numberOfProducts * page;
+        let pagination: number[];
+
+        try {
+          pagination = await this.getArrayPagination(numberOfProducts);
+        } catch (error) {
+          throw error;
+        }
 
         try {
             const result = await this.find({take: numberOfProductsLimit, skip: offSet, order: {created_at: 'DESC'}})
 
-            return result;
+            return {result, pagination};
+
         } catch (error) {
             console.log("Error na getAll ... :", error);
         }
@@ -63,10 +87,6 @@ class ProductRepository extends Repository<Product> {
                 if(differenceQuantity >= 0){
                     return await this.update(product.id_product, {amount_stock_product: differenceQuantity});
                 }
-                // return this.query(`UPDATE table_store_products SET amount_stock_product =
-                // ((select amount_stock_product from table_store_products where id_product = ${product.id_product}) - ${product.quantity_product})
-                // WHERE id_product = ${product.id_product} AND ((select amount_stock_product from table_store_products where id_product = ${product.id_product}) - ${product.quantity_product}) >= 0`);
-                // return await this.update(product.id_product, {amount_stock_product: -10});
             })
 
         } catch (error) {

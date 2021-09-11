@@ -26,7 +26,7 @@ class UserController{
             });
 
         } catch (error) {
-            return response.status(406).json({errors: error.errors, status: 'error'});
+            return response.status(406).json({response: {errors: error.errors, message: "campo(s) inválido(s)", status: 'error'}});
         }
 
         const userRepository = getConnection().getCustomRepository(UserRepository);
@@ -37,26 +37,28 @@ class UserController{
             password_user
         });
 
-
         try {
             const emailExists = await userRepository.isExistsEmail(email_user);
 
             if(!emailExists) {
               const {password_user, email_user, created_at, ...user} = await userRepository.save(userCreate);
               const token = generateToken(user.id_user);
-
-              return response.status(201).json({user, token, message: 'Usuário cadastrado com sucesso !', status: 'success'});
+              return response.status(201).json({response: {user, token, message: 'Usuário cadastrado com sucesso !', status: 'success'}});
             }else{
-              return response.status(406).json({message: "Email já cadastrado no sistema", status: 'error'});
+              return response.status(406).json({response: {errors:["Email já cadastrado"], message: "Email já cadastrado no sistema", status: 'error'}});
             }
         } catch (error) {
-            return response.status(500).json({error: [error.errors],message: "Erro interno", status: 'error'});
+            return response.status(500).json({response: {errors: error.errors, message: "Erro interno", status: 'error'}});
         }
     }
 
     async logIn(request: Request, response: Response){
+      console.log("request.headers.authorization: ", request.headers.authorization);
+
       const [, hash] = request.headers.authorization.split(' ');
       const [email_user, password_user] = Buffer.from(hash, 'base64').toString().split(":");
+
+      console.log("Test login: ", {email_user, password_user});
 
       const schema = Yup.object().shape({
         email_user: Yup.string().email("Email invalido").required("Email é um campo obrigatório"),
@@ -68,7 +70,7 @@ class UserController{
             abortEarly: false
         });
       } catch (error) {
-        return response.status(406).json({errors: error.errors, status: 'error'});
+        return response.status(406).json({response: {errors: error.errors, message: "", status: 'error'}});
       }
       const userRepository = getConnection().getCustomRepository(UserRepository);
 

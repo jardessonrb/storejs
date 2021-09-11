@@ -67,7 +67,7 @@ class ProductAdminController extends ProductController {
 
         const product = productRepository.create(dataProduct);
         try {
-            const {id_product, name_product: string} = await productRepository.save(product);
+            const {id_product, name_product} = await productRepository.save(product);
             return response.status(201).json({id_product, name_product, status: 'sucess', message: `Produto ${name_product} cadastrado com sucesso`});
 
         } catch (error) {
